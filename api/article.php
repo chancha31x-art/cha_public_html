@@ -88,6 +88,8 @@ if ($action === 'create') {
     $status           = (int) getParam('status', 2); // default = ดราฟ
     $meta_title       = trim(getParam('meta_title', ''));
     $meta_description = trim(getParam('meta_description', ''));
+    $tags             = trim(getParam('tags', ''));
+    $json_schema      = trim(getParam('json_schema', ''));
 
     // Validate
     if (empty($title))   response(false, 'กรุณาระบุ title', null, 400);
@@ -119,8 +121,8 @@ if ($action === 'create') {
     $img      = $connect->real_escape_string($img);
     $slug     = $connect->real_escape_string($slug);
 
-    $sql = "INSERT INTO pp_article (title, slug, content, img, category, author, status, meta_title, meta_description, created_at)
-            VALUES ('$title', '$slug', '$content', '$img', '$category', '$author', $status, '$meta_title', '$meta_description', NOW())";
+    $sql = "INSERT INTO pp_article (title, slug, content, img, category, author, status, tags, json_schema, meta_title, meta_description, created_at)
+            VALUES ('$title', '$slug', '$content', '$img', '$category', '$author', $status, '$tags', '$json_schema', '$meta_title', '$meta_description', NOW())";
 
     if ($connect->query($sql)) {
         $new_id = $connect->insert_id;
@@ -134,6 +136,8 @@ if ($action === 'create') {
             'status_label'     => statusLabel($status),
             'meta_title'       => $meta_title,
             'meta_description' => $meta_description,
+            'tags'             => $tags,
+            'json_schema'      => $json_schema ? '✅ มี JSON-LD' : '—',
             'url'              => '/article/' . $slug
         ]);
     } else {
