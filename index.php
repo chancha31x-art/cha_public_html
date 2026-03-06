@@ -598,6 +598,8 @@
                         include 'page/page_home.php';
                     }
                 }
+            } else if (@$_GET['page'] == "contact") {
+                include 'page/page_contact.php';
             } else if (@$_GET['page'] == "article") {
                 include 'page/page_article.php';
             } else if (@$_GET['page'] == "article_detail") {

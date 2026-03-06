@@ -40,6 +40,11 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^category_edit/([0-9a-zA-Z]+) index.php?page=manage&m=category_edit&id=$1 [L]
 
+# --- ติดต่อเรา: /contact ---
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^contact$ index.php?page=contact [L]
+
 # --- บทความรายละเอียด: /article/netflix-premium ---
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -19,12 +19,18 @@
         <li class="nav-item">
           <a class="hvr-icon-up nav-link hvr-underline-from-center text-black <?php if(@$_GET['page']=='shop'){echo'active';}?>" href="page/shop">
             <small style="font-size:16px;"><i class='bx bx-cart hvr-icon'></i> ร้านค้า</small>
-          </a>  
+          </a>
         </li>
 
         <li class="nav-item">
           <a class="hvr-icon-up nav-link hvr-underline-from-center text-black <?php if(@$_GET['page']=='article'){echo'active';}?>" href="/article">
             <small style="font-size:16px;"><i class='bx bx-news hvr-icon'></i> บทความ</small>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="hvr-icon-up nav-link hvr-underline-from-center text-black <?php if(@$_GET['page']=='contact'){echo'active';}?>" href="/?page=contact">
+            <small style="font-size:16px;"><i class='bx bx-envelope hvr-icon'></i> ติดต่อเรา</small>
           </a>
         </li>
 

@@ -10,6 +10,11 @@ require('system/master.php');
 $cache_file = sys_get_temp_dir() . '/sitemap_cache_' . md5($_SERVER['HTTP_HOST']) . '.xml';
 $cache_time = 86400; // 24hr
 
+// ลบ cache ได้ด้วย ?clear=1 (admin only)
+if (isset($_GET['clear']) && $_GET['clear'] == '1') {
+    if (file_exists($cache_file)) unlink($cache_file);
+}
+
 if (file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_time) {
     header('Content-Type: application/xml; charset=utf-8');
     header('X-Sitemap-Cache: HIT');
@@ -30,6 +35,7 @@ $static_pages = [
     ['loc' => '/',              'priority' => '1.00', 'changefreq' => 'daily'],
     ['loc' => '/article',       'priority' => '0.90', 'changefreq' => 'daily'],
     ['loc' => '/page/shop',     'priority' => '0.85', 'changefreq' => 'weekly'],
+    ['loc' => '/contact',       'priority' => '0.75', 'changefreq' => 'monthly'],
     ['loc' => '/page/login',    'priority' => '0.50', 'changefreq' => 'monthly'],
     ['loc' => '/page/register', 'priority' => '0.50', 'changefreq' => 'monthly'],
 ];
