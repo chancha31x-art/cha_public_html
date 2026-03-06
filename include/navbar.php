@@ -29,7 +29,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="hvr-icon-up nav-link hvr-underline-from-center text-black <?php if(@$_GET['page']=='contact'){echo'active';}?>" href="/?page=contact">
+          <a class="hvr-icon-up nav-link hvr-underline-from-center text-black <?php if(@$_GET['page']=='contact'){echo'active';}?>" href="/contact">
             <small style="font-size:16px;"><i class='bx bx-envelope hvr-icon'></i> ติดต่อเรา</small>
           </a>
         </li>
@@ -70,7 +70,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-right shadow" aria-labelledby="userMenu">
             <?php if($users_status == $admin_status): ?>
               <li><a class="dropdown-item" href="manage/main"><i class="fa-solid fa-code me-2"></i> จัดการหลังบ้าน</a></li>
-              <li><a class="dropdown-item" href="/?page=manage_article"><i class="fa-solid fa-newspaper me-2"></i> จัดการบทความ</a></li>
+              <li><a class="dropdown-item" href="/manage_article"><i class="fa-solid fa-newspaper me-2"></i> จัดการบทความ</a></li>
             <?php endif; ?>
             <li><a class="dropdown-item" href="page/profile"><i class="fa-solid fa-user me-2"></i> ข้อมูลส่วนตัว</a></li>
             <li><hr class="dropdown-divider"></li>

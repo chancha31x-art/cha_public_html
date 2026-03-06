@@ -45,6 +45,11 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^contact$ index.php?page=contact [L]
 
+# --- จัดการบทความ: /manage_article ---
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^manage_article$ index.php?page=manage_article [L]
+
 # --- บทความรายละเอียด: /article/netflix-premium ---
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
