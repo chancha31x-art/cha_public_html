@@ -1,0 +1,31 @@
+User-agent: Googlebot
+Disallow:
+
+User-agent: Bingbot
+Disallow:
+
+User-agent: Yahoo
+Disallow:
+
+User-agent: DuckDuckBot
+Disallow:
+
+User-agent: Baiduspider
+Disallow:
+
+User-agent: YandexBot
+Disallow:
+
+User-agent: Applebot
+Disallow:
+
+User-agent: SafariBot
+Disallow:
+
+User-agent: AhrefsBot
+Disallow:
+
+User-agent: *
+Disallow: /private/
+
+Sitemap: http://th-shops.com/sitemap.xml
