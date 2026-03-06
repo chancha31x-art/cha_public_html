@@ -19,6 +19,111 @@
         line-height: 1.8;
         color: #374151;
     }
+
+    /* ===== Typography สำหรับ content ที่ยิงเข้ามา ===== */
+    .article-content-body h1,
+    .article-content-body h2,
+    .article-content-body h3,
+    .article-content-body h4,
+    .article-content-body h5 {
+        font-weight: 800;
+        color: #1a202c;
+        margin-top: 28px;
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+    .article-content-body h1 { font-size: 1.7rem; }
+    .article-content-body h2 {
+        font-size: 1.35rem;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #ede9fe;
+    }
+    .article-content-body h3 { font-size: 1.1rem; color: #4c1d95; }
+    .article-content-body h4 { font-size: 1rem; }
+
+    .article-content-body p {
+        margin-bottom: 14px;
+        color: #374151;
+    }
+
+    .article-content-body ul,
+    .article-content-body ol {
+        margin: 10px 0 16px 22px;
+        padding-left: 10px;
+    }
+    .article-content-body ul { list-style: disc; }
+    .article-content-body ol { list-style: decimal; }
+    .article-content-body li {
+        margin-bottom: 8px;
+        color: #374151;
+        line-height: 1.7;
+    }
+    .article-content-body li::marker {
+        color: #667eea;
+        font-weight: 700;
+    }
+
+    .article-content-body a {
+        color: #667eea;
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-color: rgba(102,126,234,0.35);
+        transition: all 0.2s ease;
+    }
+    .article-content-body a:hover {
+        color: #764ba2;
+        text-decoration-color: #764ba2;
+    }
+
+    .article-content-body strong,
+    .article-content-body b {
+        font-weight: 700;
+        color: #1a202c;
+    }
+
+    .article-content-body em { font-style: italic; color: #64748b; }
+
+    .article-content-body blockquote {
+        border-left: 4px solid #667eea;
+        background: #f5f3ff;
+        padding: 14px 18px;
+        border-radius: 0 12px 12px 0;
+        margin: 16px 0;
+        color: #4c1d95;
+        font-style: italic;
+    }
+
+    .article-content-body table {
+        width: 100%; border-collapse: collapse;
+        margin: 16px 0; border-radius: 12px; overflow: hidden;
+    }
+    .article-content-body table th {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white; padding: 10px 14px; text-align: left;
+        font-weight: 700;
+    }
+    .article-content-body table td {
+        padding: 10px 14px; border-bottom: 1px solid #f1f5f9;
+        color: #374151;
+    }
+    .article-content-body table tr:nth-child(even) td { background: #fafafa; }
+
+    .article-content-body .faq { margin-top: 24px; }
+    .article-content-body .faq h2 { font-size: 1.25rem; }
+    .article-content-body .faq ul { list-style: none; margin-left: 0; padding-left: 0; }
+    .article-content-body .faq li {
+        background: #f8f7ff;
+        border-left: 4px solid #667eea;
+        border-radius: 0 12px 12px 0;
+        padding: 14px 16px;
+        margin-bottom: 12px;
+    }
+    .article-content-body .faq li strong {
+        display: block; margin-bottom: 6px;
+        color: #4c1d95; font-size: 0.95rem;
+    }
+    .article-content-body .faq li p { margin: 0; color: #374151; font-size: 0.9rem; }
+
     .article-content-body img {
         max-width: 100%;
         border-radius: 12px;
@@ -92,11 +197,8 @@
     $article = $result_article->fetch_assoc();
     // เพิ่ม views
     $connect->query("UPDATE pp_article SET views = views + 1 WHERE id = " . (int)$article['id']);
-
-<?php
-    // JSON-LD Schema
-    if (!empty($article['json_schema'])):
 ?>
+<?php if (!empty($article['json_schema'])): ?>
 <script type="application/ld+json">
 <?=$article['json_schema']?>
 </script>
