@@ -93,41 +93,6 @@
     // เพิ่ม views
     $connect->query("UPDATE pp_article SET views = views + 1 WHERE id = " . (int)$article['id']);
 
-    // === Inject SEO Meta Tags ===
-    $meta_title       = !empty($article['meta_title'])       ? htmlspecialchars($article['meta_title'])       : htmlspecialchars($article['title']);
-    $meta_description = !empty($article['meta_description']) ? htmlspecialchars($article['meta_description']) : htmlspecialchars(mb_substr(strip_tags($article['content']), 0, 155, 'UTF-8'));
-    $meta_img         = !empty($article['img'])              ? htmlspecialchars($article['img'])              : '';
-    $meta_url         = 'https://' . $_SERVER['HTTP_HOST'] . '/article/' . htmlspecialchars($article['slug']);
-?>
-<script>
-    // Override meta tags dynamically
-    document.title = "<?=$meta_title?>";
-    (function() {
-        var setMeta = function(name, content, prop) {
-            var sel = prop
-                ? 'meta[property="' + name + '"]'
-                : 'meta[name="' + name + '"]';
-            var el = document.querySelector(sel);
-            if (!el) {
-                el = document.createElement('meta');
-                prop ? el.setAttribute('property', name) : el.setAttribute('name', name);
-                document.head.appendChild(el);
-            }
-            el.setAttribute('content', content);
-        };
-        setMeta('description',        "<?=$meta_description?>");
-        setMeta('og:title',           "<?=$meta_title?>",           true);
-        setMeta('og:description',     "<?=$meta_description?>",     true);
-        setMeta('og:url',             "<?=$meta_url?>",             true);
-        setMeta('og:type',            'article',                    true);
-        <?php if ($meta_img): ?>
-        setMeta('og:image',           "<?=$meta_img?>",             true);
-        <?php endif; ?>
-        // Canonical
-        var canonical = document.querySelector('link[rel="canonical"]');
-        if (canonical) canonical.setAttribute('href', "<?=$meta_url?>");
-    })();
-</script>
 <?php
     // JSON-LD Schema
     if (!empty($article['json_schema'])):

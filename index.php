@@ -1,5 +1,18 @@
 <?php
     require('system/master.php');
+
+    // === ตรวจสอบว่าเป็นหน้าบทความหรือไม่ ===
+    $article_seo = null;
+    $current_page = isset($_GET['page']) ? $_GET['page'] : '';
+    $current_slug = isset($_GET['slug']) ? $_GET['slug'] : '';
+
+    if ($current_page === 'article_detail' && !empty($current_slug)) {
+        $slug_safe = $connect->real_escape_string(trim($current_slug));
+        $r = $connect->query("SELECT title, meta_title, meta_description, content, img, slug FROM pp_article WHERE slug='$slug_safe' AND status=1 LIMIT 1");
+        if ($r && $r->num_rows > 0) {
+            $article_seo = $r->fetch_assoc();
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,24 +20,74 @@
     <base href="<?= LOCAL_WEB ?>/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=$web_rows['web_title']?></title>
+    <title><?php
+        if ($article_seo) {
+            echo !empty($article_seo['meta_title'])
+                ? htmlspecialchars($article_seo['meta_title'])
+                : htmlspecialchars($article_seo['title']);
+        } else {
+            echo $web_rows['web_title'];
+        }
+    ?></title>
     <meta name="keywords" content="<?= $web_rows['web_keywords'] ?>">
-    <meta name="description" content="<?= $web_rows['web_description'] ?>">
+    <meta name="description" content="<?php
+        if ($article_seo) {
+            echo !empty($article_seo['meta_description'])
+                ? htmlspecialchars($article_seo['meta_description'])
+                : htmlspecialchars(mb_substr(strip_tags($article_seo['content']), 0, 155, 'UTF-8'));
+        } else {
+            echo htmlspecialchars($web_rows['web_description']);
+        }
+    ?>">
     <meta name="author" content="APP4K">
     <meta name="robots" content="index, follow" />
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="<?= LOCAL_WEB ?><?= isset($_GET['page']) && $_GET['page'] ? '/?page=' . htmlspecialchars($_GET['page']) : '/' ?>" />
+    <link rel="canonical" href="<?php
+        if ($article_seo) {
+            echo 'https://' . $_SERVER['HTTP_HOST'] . '/article/' . htmlspecialchars($article_seo['slug']);
+        } else {
+            echo LOCAL_WEB . (isset($_GET['page']) && $_GET['page'] ? '/?page=' . htmlspecialchars($_GET['page']) : '/');
+        }
+    ?>" />
     
     <!-- Hreflang for multilingual support -->
     <link rel="alternate" hreflang="th" href="<?= LOCAL_WEB ?><?= isset($_GET['page']) && $_GET['page'] ? '/?page=' . htmlspecialchars($_GET['page']) : '/' ?>" />
     <link rel="alternate" hreflang="x-default" href="<?= LOCAL_WEB ?><?= isset($_GET['page']) && $_GET['page'] ? '/?page=' . htmlspecialchars($_GET['page']) : '/' ?>" />
     
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="<?= LOCAL_WEB ?>" />
-    <meta property="og:title" content="Netflix ราคาถูก 79บาท/เดือน 4K Ultra HD | Disney+ Youtube Premium MONOMAX HBO GO VIU iQIYI WeTV Prime Video Spotify TrueID Bilibili" />
-    <meta property="og:description" content="สมัครNetflix ราคาถูก 89บาท/เดือน 4k Ultra HD | <?= LOCAL_WEB ?>" />
-    <meta property="og:image" content="assets/img/ydjpg.jpg" />
+    <meta property="og:url" content="<?php
+        if ($article_seo) {
+            echo 'https://' . $_SERVER['HTTP_HOST'] . '/article/' . htmlspecialchars($article_seo['slug']);
+        } else {
+            echo LOCAL_WEB;
+        }
+    ?>" />
+    <meta property="og:title" content="<?php
+        if ($article_seo) {
+            echo !empty($article_seo['meta_title'])
+                ? htmlspecialchars($article_seo['meta_title'])
+                : htmlspecialchars($article_seo['title']);
+        } else {
+            echo 'Netflix ราคาถูก 79บาท/เดือน 4K Ultra HD | Disney+ Youtube Premium MONOMAX HBO GO VIU iQIYI WeTV Prime Video Spotify TrueID Bilibili';
+        }
+    ?>" />
+    <meta property="og:description" content="<?php
+        if ($article_seo) {
+            echo !empty($article_seo['meta_description'])
+                ? htmlspecialchars($article_seo['meta_description'])
+                : htmlspecialchars(mb_substr(strip_tags($article_seo['content']), 0, 155, 'UTF-8'));
+        } else {
+            echo 'สมัครNetflix ราคาถูก 89บาท/เดือน 4k Ultra HD | ' . LOCAL_WEB;
+        }
+    ?>" />
+    <meta property="og:image" content="<?php
+        if ($article_seo && !empty($article_seo['img'])) {
+            echo htmlspecialchars($article_seo['img']);
+        } else {
+            echo 'assets/img/ydjpg.jpg';
+        }
+    ?>" />
 
     <!-- Favicons -->
     <link href="assets/img/logo_th.ico" rel="icon">
