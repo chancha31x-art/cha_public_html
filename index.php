@@ -632,8 +632,7 @@
                 <spen class="hvr-icon-up pointer" onclick="CradURL('<?=$web_rows['web_line']?>')" target="_blank"><i class="fa-brands fa-telegram hvr-icon"></i> Telegram</spen>
             </h5>
                 
-            <p>&copy; <?php echo date('Y'); ?> - <?=$web_rows['web_name']?> <?=$web_rows['web_version']?> Dev By | 
-            <a style="text-decoration: none;color:#fff;" href="https://web.facebook.com/xth.shops">禅茶 Chánchá</a></p>
+            <p>&copy; <?php echo date('Y'); ?> <?=$web_rows['web_name']?> · Dev By |  <a style="text-decoration: none;color:#fff;" href="https://web.facebook.com/xth.shops">禅茶 Chánchá</a></p>
         </div>
 
     </div>
